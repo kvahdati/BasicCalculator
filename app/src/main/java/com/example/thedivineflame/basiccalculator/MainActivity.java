@@ -149,12 +149,22 @@ public class MainActivity extends ActionBarActivity {
                 currentNumber = currentNumber * 10;
                 currentNumber = currentNumber + number;
             }
-        }
-        else {
-            output.setText(Integer.toString((int)Math.round(currentNumber)));
+            String newOutput = Double.toString(currentNumber);
+            if( currentNumber <999999999){
+                output.setText(newOutput.substring(0,(newOutput.length()-2)));
+            }
+            else {
+                output.setText(newOutput);
+            }
 
         }
-        output.setText(Double.toString(currentNumber));
+        else {
+
+            output.setText(Integer.toString((int)Math.round(currentNumber)));
+
+
+        }
+        ;
     }
     public void setOperation(int number)
     {
