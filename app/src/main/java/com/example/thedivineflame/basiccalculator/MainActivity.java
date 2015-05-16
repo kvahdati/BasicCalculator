@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
     double currentNumber;
+    double oldNumber;
     int dotCount;
+    boolean dotTrue;
     String operation;
     Button one;
     Button two;
@@ -36,8 +38,9 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         currentNumber = 0;
-        dotCount = 0;
+        dotCount = 1;
         operation = "";
+        dotTrue = false;
         output = (TextView) findViewById(R.id.output);
         one = (Button) findViewById(R.id.button1);
         two = (Button) findViewById(R.id.button2);
@@ -115,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
         dot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dotCount =1;
+                dotTrue =true;
             }
         });
     }
@@ -142,7 +145,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
     public void addToTotal(int number) {
-        if (dotCount == 0) {
+        if (dotTrue == false) {
             if (currentNumber == 0) {
                 currentNumber = number;
             } else {
@@ -159,8 +162,12 @@ public class MainActivity extends ActionBarActivity {
 
         }
         else {
+            dotCount ++;
+            currentNumber = currentNumber * Math.pow(10, dotCount-1);
+            currentNumber += number;
+            currentNumber = currentNumber / Math.pow(10, dotCount-1);
 
-            output.setText(Integer.toString((int)Math.round(currentNumber)));
+            output.setText(Double.toString((currentNumber)));
 
 
         }
