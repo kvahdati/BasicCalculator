@@ -14,6 +14,7 @@ public class MainActivity extends ActionBarActivity {
     double oldNumber;
     int dotCount;
     boolean dotTrue;
+    String Operator;
     String operation;
     Button one;
     Button two;
@@ -53,6 +54,10 @@ public class MainActivity extends ActionBarActivity {
         nine = (Button) findViewById(R.id.button9);
         zero = (Button) findViewById(R.id.button0);
         dot = (Button) findViewById(R.id.buttonDot);
+        plus = (Button) findViewById(R.id.buttonPlus);
+        minus = (Button) findViewById(R.id.buttonMinus);
+        times = (Button) findViewById(R.id.buttonMinus);
+        divide = (Button) findViewById(R.id.buttonDivide);
 
 
         one.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +126,30 @@ public class MainActivity extends ActionBarActivity {
                 dotTrue =true;
             }
         });
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setOperation("add");
+            }
+        });
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setOperation("subtract");
+            }
+        });
+        divide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setOperation("divide");
+            }
+        });
+        times.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setOperation("multiply");
+            }
+        });
     }
 
     @Override
@@ -173,13 +202,25 @@ public class MainActivity extends ActionBarActivity {
         }
         ;
     }
-    public void setOperation(int number)
+    public void setOperation(String Operators)
     {
-        if (number ==1) {
-
+        Operator = Operators;
+        oldNumber = currentNumber;
+        currentNumber = 0;
+    }
+    public void completeObservation() {
+        if ( Operator == "add"){
+            currentNumber = oldNumber + currentNumber;
         }
-        else if (number == 2){
-
+        else if ( Operator == "subtract") {
+            currentNumber = oldNumber - currentNumber;
         }
+        else if ( Operator == "multiply") {
+            currentNumber = oldNumber * currentNumber;
+        }
+        else if ( Operator == "divide") {
+            currentNumber = oldNumber / currentNumber;
+        }
+        output.setText(Double.toString(currentNumber));
     }
 }
