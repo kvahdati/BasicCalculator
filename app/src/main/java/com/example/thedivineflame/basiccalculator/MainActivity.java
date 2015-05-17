@@ -1,5 +1,6 @@
 package com.example.thedivineflame.basiccalculator;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
     double currentNumber;
     double oldNumber;
     int dotCount;
@@ -56,8 +57,9 @@ public class MainActivity extends ActionBarActivity {
         dot = (Button) findViewById(R.id.buttonDot);
         plus = (Button) findViewById(R.id.buttonPlus);
         minus = (Button) findViewById(R.id.buttonMinus);
-        times = (Button) findViewById(R.id.buttonMinus);
+        times = (Button) findViewById(R.id.buttonX);
         divide = (Button) findViewById(R.id.buttonDivide);
+        equal = (Button) findViewById(R.id.buttonEqual);
 
 
         one.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +152,12 @@ public class MainActivity extends ActionBarActivity {
                 setOperation("multiply");
             }
         });
+        equal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                completeObservation();
+            }
+        });
     }
 
     @Override
@@ -217,6 +225,7 @@ public class MainActivity extends ActionBarActivity {
         }
         else if ( Operator == "multiply") {
             currentNumber = oldNumber * currentNumber;
+
         }
         else if ( Operator == "divide") {
             currentNumber = oldNumber / currentNumber;
