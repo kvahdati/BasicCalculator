@@ -192,7 +192,10 @@ public class MainActivity extends Activity {
 
     }
     public void addDot(String dot) {
-        if(dotTrue = false)
+        if( numberOutput == "") {
+            numberOutput = "0";
+        }
+        if(dotTrue == false)
         {
             numberOutput = numberOutput + dot;
             output.setText(numberOutput);
@@ -235,6 +238,8 @@ public class MainActivity extends Activity {
         else if ( operator == "divide") {
             currentNumber = oldNumber / Double.parseDouble(numberOutput);
         }
+        currentNumber = Math.round(currentNumber * 1000);
+        currentNumber = currentNumber/1000;
         output.setText(String.valueOf(currentNumber));
         oldNumber = currentNumber;
         currentNumber = 0;
