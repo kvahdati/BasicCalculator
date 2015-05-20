@@ -15,8 +15,10 @@ public class MainActivity extends Activity {
     double oldNumber;
     int dotCount;
     boolean dotTrue;
-    String Operator;
+    String catchNumber;
+    String operator;
     String operation;
+    String numberOutput;
     Button one;
     Button two;
     Button three;
@@ -40,6 +42,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         currentNumber = 0;
+        numberOutput = "";
+        catchNumber = "";
         dotCount = 1;
         operation = "";
         dotTrue = false;
@@ -65,67 +69,67 @@ public class MainActivity extends Activity {
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(1);
+                addToTotal("1");
             }
         });
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(2);
+                addToTotal("2");
             }
         });
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(3);
+                addToTotal("3");
             }
         });
         four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(4);
+                addToTotal("4");
             }
         });
         five.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(5);
+                addToTotal("5");
             }
         });
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(6);
+                addToTotal("6");
             }
         });
         seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(7);
+                addToTotal("7");
             }
         });
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(8);
+                addToTotal("8");
             }
         });
         nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(9);
+                addToTotal("9");
             }
         });
         zero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTotal(0);
+                addToTotal("0");
             }
         });
         dot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dotTrue =true;
+                addDot(".");
             }
         });
         plus.setOnClickListener(new View.OnClickListener() {
@@ -181,55 +185,61 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void addToTotal(int number) {
-        if (dotTrue == false) {
-            if (currentNumber == 0) {
-                currentNumber = number;
-            } else {
-                currentNumber = currentNumber * 10;
-                currentNumber = currentNumber + number;
-            }
-            String newOutput = Double.toString(currentNumber);
-            if( currentNumber <999999999){
-                output.setText(newOutput.substring(0,(newOutput.length()-2)));
-            }
-            else {
-                output.setText(newOutput);
-            }
+    public void addToTotal(String number) {
 
+            numberOutput = numberOutput + number;
+            output.setText(numberOutput);
+
+    }
+    public void addDot(String dot) {
+        if(dotTrue = false)
+        {
+            numberOutput = numberOutput + dot;
+            output.setText(numberOutput);
+            dotTrue = true;
         }
-        else {
-            dotCount ++;
-            currentNumber = currentNumber * Math.pow(10, dotCount-1);
-            currentNumber += number;
-            currentNumber = currentNumber / Math.pow(10, dotCount-1);
-
-            output.setText(Double.toString((currentNumber)));
-
-
-        }
-        ;
     }
     public void setOperation(String Operators)
     {
-        Operator = Operators;
-        oldNumber = currentNumber;
-        currentNumber = 0;
-    }
+        if(numberOutput != ""){
+            operator = Operators;
+            oldNumber = Double.parseDouble(numberOutput);
+            currentNumber = 0;
+            dotCount = 0;
+            dotTrue = false;
+            numberOutput ="";
+        }
+        else{
+            operator = Operators;
+        }
+        }
+
+
     public void completeObservation() {
-        if ( Operator == "add"){
-            currentNumber = oldNumber + currentNumber;
+        if(numberOutput == ""){
+            numberOutput = catchNumber;
         }
-        else if ( Operator == "subtract") {
-            currentNumber = oldNumber - currentNumber;
+        if(numberOutput != ""){
+            catchNumber = numberOutput;
         }
-        else if ( Operator == "multiply") {
-            currentNumber = oldNumber * currentNumber;
+        if ( operator == "add"){
+            currentNumber = oldNumber + Double.parseDouble(numberOutput);
+        }
+        else if ( operator == "subtract") {
+            currentNumber = oldNumber - Double.parseDouble(numberOutput);
+        }
+        else if ( operator == "multiply") {
+            currentNumber = oldNumber * Double.parseDouble(numberOutput);
 
         }
-        else if ( Operator == "divide") {
-            currentNumber = oldNumber / currentNumber;
+        else if ( operator == "divide") {
+            currentNumber = oldNumber / Double.parseDouble(numberOutput);
         }
-        output.setText(Double.toString(currentNumber));
+        output.setText(String.valueOf(currentNumber));
+        oldNumber = currentNumber;
+        currentNumber = 0;
+        dotCount= 0;
+        dotTrue = false;
+        numberOutput ="";
     }
 }
